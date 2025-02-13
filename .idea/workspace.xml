@@ -5,21 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a98f939-ff7a-4591-a50e-897e733e1c4b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/greeting/client/GreetingClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/greeting/server/GreetingServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/proto/dummy/dummy.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/greeting/server/GreetServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/proto/greet/greet.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/greeting/client/GreetingClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/greeting/client/GreetingClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/greeting/server/GreetingServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/cxnzensei/grpc/greeting/server/GreetingServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +81,7 @@
     "Gradle.grpc [generateProto].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/nishi/Desktop/gRPC/grpc",
     "onboarding.tips.debug.path": "C:/Users/nishi/Desktop/gRPC/grpc/src/main/java/com/github/cxnzensei/grpc/Main.java"
@@ -148,9 +138,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.grpc [generateProto]" />
         <item itemvalue="Application.GreetingClient" />
         <item itemvalue="Application.GreetingServer" />
-        <item itemvalue="Gradle.grpc [generateProto]" />
       </list>
     </recent_temporary>
   </component>

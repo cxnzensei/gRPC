@@ -1,6 +1,10 @@
 package com.github.cxnzensei.grpc.greeting.client;
 
 import com.proto.dummy.DummyServiceGrpc;
+import com.proto.greet.GreetRequest;
+import com.proto.greet.GreetResponse;
+import com.proto.greet.GreetServiceGrpc;
+import com.proto.greet.Greeting;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -14,9 +18,17 @@ public class GreetingClient {
                 .usePlaintext() // remove in prod
                 .build();
 
-        DummyServiceGrpc.DummyServiceBlockingStub syncClient = DummyServiceGrpc.newBlockingStub(channel);
-
+        System.out.println("Creating stub");
+        // DummyServiceGrpc.DummyServiceBlockingStub syncClient = DummyServiceGrpc.newBlockingStub(channel);
         // DummyServiceGrpc.DummyServiceFutureStub asyncClient = DummyServiceGrpc.newFutureStub(channel);
+
+        GreetServiceGrpc.GreetServiceBlockingStub greetClient = GreetServiceGrpc.newBlockingStub(channel);
+
+        Greeting greeting = Greeting.newBuilder().setFirstName("Nishit").setLastName("Patil").build();
+        GreetRequest greetRequest = GreetRequest.newBuilder().setGreeting(greeting).build();
+        GreetResponse response = greetClient.greet(greetRequest);
+
+        System.out.println(response.getResult());
 
         // Do something here
 
