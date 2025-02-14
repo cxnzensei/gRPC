@@ -1,8 +1,6 @@
 package com.github.cxnzensei.grpc.calculator.client;
 
-import com.proto.calculator.CalculatorServiceGrpc;
-import com.proto.calculator.SumRequest;
-import com.proto.calculator.SumResponse;
+import com.proto.calculator.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -16,13 +14,22 @@ public class CalculatorClient {
 
         CalculatorServiceGrpc.CalculatorServiceBlockingStub stub = CalculatorServiceGrpc.newBlockingStub(channel);
 
-        SumRequest request = SumRequest.newBuilder()
-                .setFirstNumber(10)
-                .setSecondNumber(25)
-                .build();
+        // Unary
+        //        SumRequest request = SumRequest.newBuilder()
+        //                .setFirstNumber(10)
+        //                .setSecondNumber(25)
+        //                .build();
+        //
+        //        SumResponse response = stub.sum(request);
+        //
+        //        System.out.println(request.getFirstNumber() + " + " + request.getSecondNumber() + " = " + response.getSumResult());
 
-        SumResponse response = stub.sum(request);
+        // Streaming Server
+        int number = 12344545;
+        stub.primeNumberDecomposition(PrimeNumberDecompositionRequest
+                .newBuilder().setNumber(number).build())
+                .forEachRemaining(PrimeNumberDecompositionResponse -> System.out.println(PrimeNumberDecompositionResponse.getPrimeFactor()));
 
-        System.out.println(request.getFirstNumber() + " + " + request.getSecondNumber() + " = " + response.getSumResult());
+        channel.shutdown();
     }
 }
