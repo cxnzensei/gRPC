@@ -3,6 +3,10 @@ package com.github.cxnzensei.grpc.greeting.client;
 import com.proto.greet.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class GreetingClient {
 
@@ -20,10 +24,64 @@ public class GreetingClient {
                 .build();
 
         // doUnaryCall(channel);
-        doServerStreamingCall(channel);
+        // doServerStreamingCall(channel);
+
+        doClientStreamingCall(channel);
 
         System.out.println("Shutting down channel");
         channel.shutdown();
+    }
+
+    private void doClientStreamingCall(ManagedChannel channel) {
+
+        // create an async client
+        GreetServiceGrpc.GreetServiceStub asyncClient = GreetServiceGrpc.newStub(channel);
+
+        CountDownLatch latch = new CountDownLatch(1);
+
+        StreamObserver<LongGreetRequest> requestObserver = asyncClient.longGreet(new StreamObserver<>() {
+            @Override
+            public void onNext(LongGreetResponse longGreetResponse) {
+                // we get a response from the server
+                // will be called once
+                System.out.println("Received a response from the server: " + longGreetResponse.getResult());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                // we get an error from the server
+            }
+
+            @Override
+            public void onCompleted() {
+                // server is done sending data
+                // will be called right after onNext()
+                System.out.println("Server has completed sending us response(s)");
+                latch.countDown();
+            }
+        });
+
+        // message 1
+        System.out.println("Sending message 1");
+        requestObserver.onNext(LongGreetRequest.newBuilder().setGreeting(Greeting.newBuilder().setFirstName("Mario")).build());
+
+        // message 2
+        System.out.println("Sending message 2");
+        requestObserver.onNext(LongGreetRequest.newBuilder().setGreeting(Greeting.newBuilder().setFirstName("Luigi")).build());
+
+        // message 3
+        System.out.println("Sending message 3");
+        requestObserver.onNext(LongGreetRequest.newBuilder().setGreeting(Greeting.newBuilder().setFirstName("Waluigi")).build());
+
+        // we tell the server that the client has completed sending data
+        requestObserver.onCompleted();
+
+        try {
+            latch.await(3L, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void doServerStreamingCall(ManagedChannel channel) {
