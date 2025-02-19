@@ -3,6 +3,7 @@ package com.github.cxnzensei.grpc.calculator.client;
 import com.proto.calculator.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 import java.util.Arrays;
@@ -25,10 +26,21 @@ public class CalculatorClient {
         // doUnaryCall(channel);
         // doServerStreamingCall(channel);
         // doClientStreamingCall(channel);
+        // doBidirectionalStreamingCall(channel);
 
-        doBidirectionalStreamingCall(channel);
+        doErrorCall(channel);
 
         channel.shutdown();
+    }
+
+    public void doErrorCall(ManagedChannel channel) {
+        CalculatorServiceGrpc.CalculatorServiceBlockingStub blockingStub = CalculatorServiceGrpc.newBlockingStub(channel);
+        try {
+            blockingStub.squareRoot(SquareRootRequest.newBuilder().setNumber(-1).build());
+        } catch (StatusRuntimeException e) {
+            System.out.println("Got an exception for square root!");
+            e.printStackTrace();
+        }
     }
 
     public void doUnaryCall(ManagedChannel channel) {

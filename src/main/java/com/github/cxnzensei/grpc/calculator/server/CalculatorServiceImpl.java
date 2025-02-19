@@ -1,6 +1,7 @@
 package com.github.cxnzensei.grpc.calculator.server;
 
 import com.proto.calculator.*;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
 public class CalculatorServiceImpl extends CalculatorServiceGrpc.CalculatorServiceImplBase {
@@ -88,5 +89,22 @@ public class CalculatorServiceImpl extends CalculatorServiceGrpc.CalculatorServi
                 responseObserver.onCompleted();
             }
         };
+    }
+
+    @Override
+    public void squareRoot(SquareRootRequest request, StreamObserver<SquareRootResponse> responseObserver) {
+        int number = request.getNumber();
+
+        if(number >= 0) {
+            double numberRoot = Math.sqrt(number);
+            responseObserver.onNext(SquareRootResponse.newBuilder().setRoot(numberRoot).build());
+        } else {
+            responseObserver.onError(
+                    Status.INVALID_ARGUMENT
+                    .withDescription("The number being sent is not positive")
+                    .augmentDescription("Number sent: " + number)
+                    .asRuntimeException()
+            );
+        }
     }
 }
